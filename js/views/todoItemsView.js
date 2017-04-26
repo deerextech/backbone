@@ -12,7 +12,8 @@ initialize:function(options){
   this.model.on("add", this.onAddTodoItem, this);
 },
 events:{
-  "click #add" : "onClickAdd"
+  "click #add" : "onClickAdd",
+  "keypress #newTodoItem": "onKeyPress"
 },
 onAddTodoItem: function(todoItem){
   //targeting todoItem model, because it is a single to do item, not the whole collection.
@@ -36,12 +37,20 @@ onClickAdd: function(e){
   // var todoItem = new TodoItem({description:"new item"});
 
 
+  // todoItem.save();
 
+  // this.model.save();
   //will instruct view to add item in initalize..
   this.model.add(todoItem);
 
   //clear textbox
   this.$($textBox).val("");
+},
+onKeyPress: function(e){
+  //key code 13 references Enter key
+  if(e.keyCode ==13)
+//don't forget to
+  this.onClickAdd();
 },
 render:function(){
   //need to make a reference for 'this' because its context is going to change inside the item map. #javascriptNinja
