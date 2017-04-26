@@ -1,4 +1,3 @@
 # backbone
-
-# fixing repo ... attached to wrong account
-still trying to fix problem ugh.
+Of course it was because of the mac keychain system. Ugh.
+Problem fixed.
