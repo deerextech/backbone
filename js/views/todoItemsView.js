@@ -22,7 +22,12 @@ onAddTodoItem: function(todoItem){
   // not a whole collection of thangs.
 
   var view = new TodoItemView({model:todoItem});
-  this.$el.append(view.render().$el);
+  console.log('what is this view now?', view);
+  console.log('what is this el now?', this.$el);
+// so this . el is now a div, and not the ul, so the ul must be explicitly called by id
+  // this.$el.append(view.render().$el);
+
+  this.$("#todoItems").append(view.render().$el);
 
 },
 onClickAdd: function(e){
@@ -61,6 +66,10 @@ onRemoveTodoItem: function(todoItem){
   this.$("li#" + todoItem.id).remove();
 },
 render:function(){
+  var template = $("#todoItemsTemplate").html();
+  var html = Mustache.render(template);
+  this.$el.html(html);
+/* No longer need this block because it is templated.
   //need to make a reference for 'this' because its context is going to change inside the item map. #javascriptNinja
   var self = this;
 
@@ -77,7 +86,7 @@ render:function(){
     self.$el.append(view.render().$el);
 
   });
-
+*/
   return this;
 }
 });

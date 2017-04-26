@@ -40,10 +40,11 @@ var TodoItemView = Backbone.View.extend({
 
     //toggleClass is a jQuery method.
     this.$el.toggleClass("completed", this.model.get("completed"));
-    var checked = this.model.get("completed") ? "checked":"";
+    var template = $("#todoItemTemplate").html();
+    var html = Mustache.render(template, this.model.toJSON());
 
-    this.$el.html("<input id='toggle' type='checkbox' " + checked + "/> " + this.model.escape("title") +" <button id='delete'>Delete</button>")
-    // this.$el.html(this.model.escape("description"));
+    this.$el.html(html);
+
     return this;
   }
 })
