@@ -2,8 +2,6 @@
 
 var TodoItemsView = Backbone.View.extend({
 
-tagName:"ul",
-id:"todoItems",
 initialize:function(options){
   if(!(options && options.model))
   throw new Error("model is not specified.");
@@ -16,7 +14,7 @@ initialize:function(options){
 events:{
   "click #add" : "onClickAdd",
   "keypress #newTodoItem": "onKeyPress",
-    "click #delete": "onClickDelete"
+  "click #delete": "onClickDelete"
 },
 onAddTodoItem: function(todoItem){
   //targeting todoItem model, because it is a single to do item, not the whole collection.
@@ -32,15 +30,18 @@ onClickAdd: function(e){
   //check for empty values
   if($textBox.val()){
     //if value, add it
-    var todoItem = new TodoItem({description: this.$($textBox).val()});
+    var todoItem = new TodoItem({title: this.$($textBox).val()});
   }
   // The following 3 lines are for adding a static item... won't need that soon, but keep reference here, just in case
   //when button is clicked, add static item
   // //will need listener to update actual list on webpage
-  // var todoItem = new TodoItem({description:"new item"});
+  // var todoItem = new TodoItem({title:"new item"});
 
+  this.model.create(todoItem);
+  //long way {
+  //todoItem.save();
   //will instruct view to add item in initalize..
-  this.model.add(todoItem);
+  // this.model.add(todoItem); }
 
   //clear textbox
   this.$($textBox).val("");
@@ -53,7 +54,7 @@ onKeyPress: function(e){
 },
 onRemoveTodoItem: function(todoItem){
   console.log('to do', todoItem);
-  console.log('was it actually removed tho', DOM)
+  // console.log('was it actually removed tho', DOM)
   //take id from todoItem & use it to find and remove right li
 
   // target li & it's todo item, with todoItem's unique id

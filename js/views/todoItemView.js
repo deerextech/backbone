@@ -27,6 +27,7 @@ var TodoItemView = Backbone.View.extend({
     //moved logic to todoItem model, so it can decide what to do with itself, instead of the view.
 
     this.model.toggle();
+    this.model.save();
     // console.log('i clicked')
   },
   onClickDelete: function(){
@@ -41,7 +42,7 @@ var TodoItemView = Backbone.View.extend({
     this.$el.toggleClass("completed", this.model.get("completed"));
     var checked = this.model.get("completed") ? "checked":"";
 
-    this.$el.html("<input id='toggle' type='checkbox' " + checked + "/> " + this.model.escape("description") +" <button id='delete'>Delete</button>")
+    this.$el.html("<input id='toggle' type='checkbox' " + checked + "/> " + this.model.escape("title") +" <button id='delete'>Delete</button>")
     // this.$el.html(this.model.escape("description"));
     return this;
   }
