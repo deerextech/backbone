@@ -7,6 +7,9 @@
 
 
 var TodoItemView = Backbone.View.extend({
+  //probably could use a tagName, ya know?
+  tagName:"li",
+
 
   initialize:function(options){
     if(!(options && options.model))
