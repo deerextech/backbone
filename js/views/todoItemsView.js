@@ -10,10 +10,13 @@ initialize:function(options){
 
   //listening for add event of collection.
   this.model.on("add", this.onAddTodoItem, this);
+  //subscribe to remove event
+  this.model.on("remove", this.onRemoveTodoItem, this);
 },
 events:{
   "click #add" : "onClickAdd",
-  "keypress #newTodoItem": "onKeyPress"
+  "keypress #newTodoItem": "onKeyPress",
+    "click #delete": "onClickDelete"
 },
 onAddTodoItem: function(todoItem){
   //targeting todoItem model, because it is a single to do item, not the whole collection.
@@ -36,10 +39,6 @@ onClickAdd: function(e){
   // //will need listener to update actual list on webpage
   // var todoItem = new TodoItem({description:"new item"});
 
-
-  // todoItem.save();
-
-  // this.model.save();
   //will instruct view to add item in initalize..
   this.model.add(todoItem);
 
@@ -52,6 +51,14 @@ onKeyPress: function(e){
 //don't forget to
   this.onClickAdd();
 },
+onRemoveTodoItem: function(todoItem){
+  console.log('to do', todoItem);
+  console.log('was it actually removed tho', DOM)
+  //take id from todoItem & use it to find and remove right li
+
+  // target li & it's todo item, with todoItem's unique id
+  this.$("li#" + todoItem.id).remove();
+},
 render:function(){
   //need to make a reference for 'this' because its context is going to change inside the item map. #javascriptNinja
   var self = this;
@@ -63,9 +70,9 @@ render:function(){
 
   this.model.each(function(todoItem){
     var view = new TodoItemView({model: todoItem});
-    //see, the self refers to model
-    console.log('this keyword', this);
-    console.log('self variable', self);
+    //uncomment following 2 lines to see the self v. this in action
+    // console.log('this keyword', this);
+    // console.log('self variable', self);
     self.$el.append(view.render().$el);
 
   });

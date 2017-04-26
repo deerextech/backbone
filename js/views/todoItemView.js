@@ -20,7 +20,8 @@ var TodoItemView = Backbone.View.extend({
     this.model.on("change", this.render,this);
   },
   events:{
-    "click #toggle":"onClickToggle"
+    "click #toggle":"onClickToggle",
+    "click #delete": "onClickDelete"
   },
   onClickToggle: function(){
     //moved logic to todoItem model, so it can decide what to do with itself, instead of the view.
@@ -28,13 +29,19 @@ var TodoItemView = Backbone.View.extend({
     this.model.toggle();
     // console.log('i clicked')
   },
+  onClickDelete: function(){
+    // console.log('delete clicked')
+      this.model.destroy();
+  },
   render:function(){
-
+    //need to get a id so delete method knows what it's removing from dom
     this.$el.attr("id", this.model.id);
+
+    //toggleClass is a jQuery method.
     this.$el.toggleClass("completed", this.model.get("completed"));
     var checked = this.model.get("completed") ? "checked":"";
 
-    this.$el.html("<input id='toggle' type='checkbox' " + checked + "/> " + this.model.escape("description"))
+    this.$el.html("<input id='toggle' type='checkbox' " + checked + "/> " + this.model.escape("description") +" <button id='delete'>Delete</button>")
     // this.$el.html(this.model.escape("description"));
     return this;
   }
